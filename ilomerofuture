@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Future ilomero</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      color: #e2e8f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Container */
+    .future-container {
+      max-width: 700px;
+      padding: 3rem 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.08);
+      text-align: center;
+      animation: fadeInScale 1.2s ease forwards;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, #67e8f9, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      margin-top: 1rem;
+      line-height: 1.6;
+      animation: fadeInUp 1.6s ease forwards;
+      opacity: 0.85;
+    }
+
+    .hint {
+      margin-top: 2.5rem;
+      font-size: 0.95rem;
+      color: #64748b;
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Glow orb background */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #38bdf8 0%, transparent 70%);
+      top: -150px;
+      left: -200px;
+      filter: blur(80px);
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 0;
+      animation: pulseGlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1); opacity: 0.15; }
+      100% { transform: scale(1.1); opacity: 0.25; }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+
+  <div class="future-container">
+    <h1>The Future of Ilomero</h1>
+    <p>
+      In the future, <strong>Ilomero</strong> might return online.<br />
+      But if it does, it won’t be the same as before.
+    </p>
+    <p>
+      The original services, style, and features<br />
+      will not come back as they once were.
+    </p>
+    <div class="hint">
+      Stay curious. Something new might rise from nothing.
+    </div>
+  </div>
+</body>
+</html>
