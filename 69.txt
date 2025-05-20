@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ilomero Shutdown</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      background: linear-gradient(135deg, #2f2f2f, #1a1a1a);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ddd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 20px;
+    }
+
+    .shutdown-container {
+      max-width: 600px;
+      background: #121212dd;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      box-shadow:
+        0 0 30px 5px rgba(255, 0, 0, 0.2),
+        inset 0 0 15px 1px rgba(255, 0, 0, 0.3);
+      animation: fadeInScale 1.5s ease forwards;
+      user-select: none;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      color: #ff4c4c;
+      text-shadow:
+        0 0 6px #ff4c4c,
+        0 0 15px #ff0000;
+      letter-spacing: 0.1em;
+      font-weight: 900;
+    }
+
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #bbb;
+      line-height: 1.6;
+    }
+
+    .icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      color: #ff1a1a;
+      animation: pulseRed 2s infinite ease-in-out;
+    }
+
+    /* Button */
+    .btn-home {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff4c4c, #ff0000);
+      color: white;
+      padding: 0.85em 2em;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(255, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+    .btn-home:hover {
+      background: linear-gradient(135deg, #ff0000, #ff4c4c);
+      box-shadow: 0 15px 20px rgba(255, 0, 0, 0.7);
+      transform: translateY(-3px);
+    }
+    .btn-home:active {
+      transform: translateY(1px);
+      box-shadow: 0 8px 10px rgba(255, 0, 0, 0.4);
+    }
+
+    /* Animations */
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    @keyframes pulseRed {
+      0%, 100% {
+        text-shadow:
+          0 0 6px #ff4c4c,
+          0 0 15px #ff0000;
+        color: #ff1a1a;
+      }
+      50% {
+        text-shadow:
+          0 0 12px #ff0000,
+          0 0 25px #ff1a1a;
+        color: #ff4c4c;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shutdown-container" role="main" aria-labelledby="shutdown-title">
+    <div class="icon" aria-hidden="true">⚠️</div>
+    <h1 id="shutdown-title">Ilomero Has Been Permanently Shutdown</h1>
+    <p>
+      After many wonderful moments, Ilomero is now permanently closed.<br />
+      We thank all our users and supporters for being part of this journey.<br />
+      This decision is final, and the service will no longer be available.
+    </p>
+    <a href="/" class="btn-home" aria-label="Go back to homepage">Go to Homepage</a>
+  </div>
+</body>
+</html>
