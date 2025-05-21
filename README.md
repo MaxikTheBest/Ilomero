@@ -1,1 +1,1 @@
-ilomero.com //proceed
+ilomero.com -- visit for more info
