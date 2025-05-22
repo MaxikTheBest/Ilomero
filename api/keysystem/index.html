@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Key System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: fadeInBody 1s ease forwards;
+    }
+
+    @keyframes fadeInBody {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 1.3rem;
+      margin-bottom: 2.5rem;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    button.button {
+      background: #4a90e2;
+      border: none;
+      padding: 18px 48px;
+      border-radius: 14px;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(74, 144, 226, 0.6);
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    button.button:hover {
+      background: #357abd;
+      box-shadow: 0 10px 20px rgba(53, 122, 189, 0.8);
+      transform: scale(1.05);
+    }
+
+    button.button:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 8px rgba(53, 122, 189, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Key System</h1>
+  <p>Click the button below to the key system.</p>
+  <button class="button" onclick="getKey()">Get Key</button>
+
+  <script>
+    function getKey() {
+      window.location.href = "https://link-hub.net/1353096/ilomero-linkvertise";
+    }
+  </script>
+</body>
+</html>

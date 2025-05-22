@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Key</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #0f0f0f;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      background: #1e1e1e;
+      padding: 30px 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    #key {
+      font-size: 20px;
+      background: #2c2c2c;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: inline-block;
+      word-break: break-word;
+      min-width: 200px;
+    }
+
+    .button {
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+
+    .button:hover {
+      background: #2ecc71;
+    }
+
+    .loading {
+      font-size: 18px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="contentBox">
+  <h2>Your Key:</h2>
+  <div id="key" class="loading">Checking referrer...</div>
+  <button class="button" onclick="copyKey()" style="display:none;" id="copyBtn">Copy Key</button>
+</div>
+
+<script>
+  function generateKey(length = 25) {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
+
+  function copyKey() {
+    const key = document.getElementById("key").textContent;
+    if (key && key !== "Access denied.") {
+      navigator.clipboard.writeText(key).then(() => {
+        alert("Key copied to clipboard!");
+      });
+    }
+  }
+
+  function showContent() {
+    const box = document.getElementById("contentBox");
+    box.classList.add("visible");
+  }
+
+  function checkReferrer() {
+    const referrer = document.referrer;
+
+    const keyBox = document.getElementById("key");
+    const copyBtn = document.getElementById("copyBtn");
+
+    if (referrer.includes("linkvertise.com")) {
+      const key = generateKey();
+      setTimeout(() => {
+        keyBox.textContent = key;
+        copyBtn.style.display = "inline-block";
+        showContent();
+      }, 1000); // simulate processing delay
+    } else {
+      window.location.href = "https://ilomero.com/bypassv1/main/index.html";
+    }
+  }
+
+  window.onload = () => {
+    checkReferrer();
+  };
+</script>
+
+</body>
+</html>
