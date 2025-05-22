@@ -80,23 +80,15 @@
   };
 
   // 9. Extension Injection / Unexpected Globals
-const suspiciousGlobals = ['_injectedTestFlag', 'injectedTestFunction'];
-setInterval(() => {
-  const currentGlobals = Object.keys(window);
-  const newGlobals = currentGlobals.filter(k => !knownGlobals.includes(k));
-
-  if (newGlobals.length >= 1) {
-    console.warn("Injected globals detected:", newGlobals);
-    redirect();
-  }
-
-  for (const g of suspiciousGlobals) {
-    if (window.hasOwnProperty(g)) {
-      console.warn(`Suspicious global detected: ${g}`);
+  const knownGlobals = Object.keys(window);
+  setInterval(() => {
+    const currentGlobals = Object.keys(window);
+    const newGlobals = currentGlobals.filter(k => !knownGlobals.includes(k));
+    if (newGlobals.length > 5) {
+      console.warn("Injected globals detected:", newGlobals);
       redirect();
     }
-  }
-}, 500);
+  }, 1500);
 
   // 10. Disable Drag/Drop
   document.addEventListener("dragstart", e => e.preventDefault());
