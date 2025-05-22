@@ -102,7 +102,7 @@
     ) redirect();
   });
 
-  // Detection Loop
+  // Detection Loopd
   setInterval(() => {
     spamConsole();
     devtoolsTrap();
