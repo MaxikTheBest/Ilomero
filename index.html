@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ilomero Shutdown</title>
   <style>
+    @import url('https://fonts.googleapis.com/css?family=Lily+Script+One&display=swap');
+
     /* Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
       background: linear-gradient(135deg, #2f2f2f, #1a1a1a);
@@ -26,6 +29,73 @@
       padding: 20px;
     }
 
+    /* LOADING SCREEN */
+    #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ddd;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease;
+      z-index: 9999;
+    }
+
+    #loadingScreen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    h1.loading-text {
+      font-size: 2em;
+      font-family: 'Lily Script One', cursive;
+      color: #505e77;
+      letter-spacing: 7px;
+    }
+
+    .imgContainer {
+      position: relative;
+      width: 200px;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .imgContainer img.bottle {
+      width: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      bottom: 18px;
+      animation: floating 1.75s ease-in-out infinite alternate;
+    }
+
+    .imgContainer img.wave {
+      animation: wave 2.3s linear infinite;
+      animation-delay: -0.2s;
+      position: absolute;
+      bottom: 0;
+      width: 200%;
+    }
+
+    .imgContainer img.wave.delay {
+      animation-duration: 3.5s;
+    }
+
+    @keyframes wave {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes floating {
+      from { transform: translate(-50%,10px); }
+      to { transform: translate(-50%,-10px); }
+    }
+
+    /* MAIN CONTENT */
     .shutdown-container {
       max-width: 600px;
       background: #121212dd;
@@ -63,7 +133,6 @@
       animation: pulseRed 2s infinite ease-in-out;
     }
 
-    /* Button */
     .btn-home {
       display: inline-block;
       background: linear-gradient(135deg, #ff4c4c, #ff0000);
@@ -79,38 +148,30 @@
       text-decoration: none;
       user-select: none;
     }
+
     .btn-home:hover {
       background: linear-gradient(135deg, #ff0000, #ff4c4c);
       box-shadow: 0 15px 20px rgba(255, 0, 0, 0.7);
       transform: translateY(-3px);
     }
+
     .btn-home:active {
       transform: translateY(1px);
       box-shadow: 0 8px 10px rgba(255, 0, 0, 0.4);
     }
 
-    /* Animations */
     @keyframes fadeInScale {
-      0% {
-        opacity: 0;
-        transform: scale(0.85);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
+      0% { opacity: 0; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1); }
     }
+
     @keyframes pulseRed {
       0%, 100% {
-        text-shadow:
-          0 0 6px #ff4c4c,
-          0 0 15px #ff0000;
+        text-shadow: 0 0 6px #ff4c4c, 0 0 15px #ff0000;
         color: #ff1a1a;
       }
       50% {
-        text-shadow:
-          0 0 12px #ff0000,
-          0 0 25px #ff1a1a;
+        text-shadow: 0 0 12px #ff0000, 0 0 25px #ff1a1a;
         color: #ff4c4c;
       }
     }
@@ -126,6 +187,18 @@
   </style>
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen">
+    <div class="imgContainer">
+      <img class="wave" src="https://i.pinimg.com/originals/64/91/54/6491542a239217a7d44bfba368cd06c8.png" alt="">
+      <img class="bottle" src="https://i.pinimg.com/originals/67/19/71/6719713708a3a22081b18e9a520c85e8.png" alt="">
+      <img class="wave delay" src="https://i.pinimg.com/originals/64/91/54/6491542a239217a7d44bfba368cd06c8.png" alt="">
+      <img class="wave delay" src="https://i.pinimg.com/originals/64/91/54/6491542a239217a7d44bfba368cd06c8.png" alt="">
+    </div>
+    <h1 class="loading-text">Loading...</h1>
+  </div>
+
+  <!-- Main Content -->
   <div class="shutdown-container" role="main" aria-labelledby="shutdown-title">
     <div class="icon" aria-hidden="true">⚠️</div>
     <h1 id="shutdown-title">Ilomero Has Been Permanently Shutdown</h1>
@@ -136,5 +209,14 @@
     </p>
     <a href="https://ilomero.com/ilomerofuture.html" class="btn-home" aria-label="Go back to homepage">Go to future ilomero</a>
   </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.classList.add('fade-out');
+      }, 2000);
+    });
+  </script>
 </body>
 </html>
