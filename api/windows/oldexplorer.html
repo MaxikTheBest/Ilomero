@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Old Microsoft Explorer</title>
+<style>
+  /* Background and font */
+  body {
+    margin: 0;
+    padding: 20px;
+    background: #c0c0c0; /* classic gray background */
+    font-family: 'MS Sans Serif', Tahoma, Geneva, sans-serif;
+    color: #000080; /* navy blue text */
+    user-select: none;
+  }
+
+  /* Container that looks like a classic window */
+  .window {
+    width: 480px;
+    margin: 40px auto;
+    background: linear-gradient(to bottom, #e0e0e0 0%, #c0c0c0 100%);
+    border: 2px solid #000080;
+    box-shadow: 4px 4px 0 #404040;
+  }
+
+  /* Title bar with classic Windows 95 style */
+  .title-bar {
+    background: linear-gradient(to bottom, #000080 0%, #000050 100%);
+    color: white;
+    font-weight: bold;
+    padding: 4px 10px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+
+  /* Classic Windows icon look */
+  .title-bar .icon {
+    width: 16px;
+    height: 16px;
+    background: #000080;
+    border: 1px solid white;
+    margin-right: 8px;
+  }
+
+  /* Close button style */
+  .title-bar .close-btn {
+    width: 18px;
+    height: 18px;
+    background: #c0c0c0;
+    border: 1px solid #404040;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    line-height: 16px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .title-bar .close-btn:hover {
+    background: #ff0000;
+    color: white;
+    border-color: #800000;
+  }
+
+  /* Content area */
+  .content {
+    background: white;
+    padding: 20px;
+    font-size: 16px;
+    border-top: 2px solid #808080;
+  }
+
+  /* Subtle smooth fade-in effect */
+  .window {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<div class="window">
+  <div class="title-bar">
+    <div style="display:flex; align-items:center;">
+      <div class="icon"></div>
+      Old Microsoft Explorer
+    </div>
+    <div class="close-btn" onclick="alert('This window cannot be closed')">X</div>
+  </div>
+  <div class="content">
+    <p><strong>Success!</strong></p>
+    <p>You have successfully opened the <em>Old Microsoft Explorer</em> interface.</p>
+    <p>Welcome to a blast from the past! Enjoy the classic Windows 95 style.</p>
+  </div>
+</div>
+
+</body>
+</html>
