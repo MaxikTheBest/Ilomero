@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="refresh" content="3; URL=https://ilomero.com/api/windows/oldexplorer.html">
-  <title>Redirecting...</title>
+  <title>Opening microsoft edge in a new window, please check your taskbar!</title>
   <style type="text/css">
     body {
       background-color: #c0c0c0;
