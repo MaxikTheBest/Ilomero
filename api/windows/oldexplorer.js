@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="3; URL=https://ilomero.com/api/windows/oldexplorer.html">
-  <title>Opening microsoft edge in a new window, please check your taskbar!</title>
+  <title>Open Old Explorer</title>
   <style type="text/css">
     body {
       background-color: #c0c0c0;
@@ -32,6 +31,13 @@
       padding: 20px;
       border-top: 2px solid #808080;
     }
+    a {
+      color: #0000ff;
+      text-decoration: underline;
+    }
+    a:hover {
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -39,8 +45,8 @@
 <div class="window">
   <div class="title-bar">Microsoft Internet Explorer</div>
   <div class="content">
-    <p>Opening microsoft old browser in a new window...</p>
-    <p><small>If it hasnt poped up in your taskbar, click here:, <a href="https://ilomero.com/api/windows/oldexplorer.html">click here</a>.</small></p>
+    <p>Please click below to open microsoft old browser!</p>
+    <p><small>You can:, <a href="https://ilomero.com/api/windows/oldexplorer.html">click here</a> to open it!.</small></p>
   </div>
 </div>
 
