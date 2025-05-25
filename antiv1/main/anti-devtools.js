@@ -1,123 +1,150 @@
 (function () {
   let isDevtoolsOpen = false;
-  let pausedOverlay = null;
+  let overlay = null;
+  let freezeInterval = null;
 
-  // Utility: Create overlay
+  // Display overlay to "pause" the UI
   function createOverlay() {
-    if (!pausedOverlay) {
-      pausedOverlay = document.createElement('div');
-      pausedOverlay.style.position = 'fixed';
-      pausedOverlay.style.top = 0;
-      pausedOverlay.style.left = 0;
-      pausedOverlay.style.width = '100vw';
-      pausedOverlay.style.height = '100vh';
-      pausedOverlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
-      pausedOverlay.style.zIndex = 999999;
-      pausedOverlay.style.pointerEvents = 'all';
-      pausedOverlay.style.color = '#fff';
-      pausedOverlay.style.display = 'flex';
-      pausedOverlay.style.alignItems = 'center';
-      pausedOverlay.style.justifyContent = 'center';
-      pausedOverlay.style.fontSize = '2rem';
-      pausedOverlay.style.fontFamily = 'monospace';
-      pausedOverlay.innerText = '⚠ Site Paused: DevTools Detected';
-      document.body.appendChild(pausedOverlay);
+    if (!overlay) {
+      overlay = document.createElement('div');
+      Object.assign(overlay.style, {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: 'rgba(0, 0, 0, 0.95)',
+        color: '#0f0',
+        fontSize: '1.8rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'monospace',
+        zIndex: 999999,
+        pointerEvents: 'all'
+      });
+      overlay.textContent = '⚠ Protected by AntiV1 — DevTools detected. Console frozen.';
+      document.body.appendChild(overlay);
     }
   }
 
   function removeOverlay() {
-    if (pausedOverlay) {
-      pausedOverlay.remove();
-      pausedOverlay = null;
+    if (overlay) {
+      overlay.remove();
+      overlay = null;
     }
   }
 
-  // Method 1: Console detection
-  const devtoolsWarning = 'Protected by AntiV1, please don’t run scripts!';
-  console.warn(devtoolsWarning);
+  // Disable console methods
+  function lockConsole() {
+    const block = () => {
+      console.clear();
+      console.log = () => {};
+      console.warn = () => {};
+      console.error = () => {};
+      console.info = () => {};
+      Object.defineProperty(window, 'console', {
+        get() {
+          throw new Error('Console access is disabled.');
+        },
+        configurable: false
+      });
+    };
+    try {
+      block();
+    } catch (_) {}
+  }
 
-  // Hide future console logs
-  console.log = function () {};
-  console.warn = function () {};
-  console.info = function () {};
-
-  // Method 2: Detect by checking console open via devtools
-  let threshold = 160;
-  const detectDevTools = () => {
-    const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-    const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-    if (widthThreshold || heightThreshold) {
-      if (!isDevtoolsOpen) {
-        isDevtoolsOpen = true;
-        createOverlay();
-      }
-    } else {
-      if (isDevtoolsOpen) {
-        isDevtoolsOpen = false;
-        removeOverlay();
-      }
-    }
-  };
-  setInterval(detectDevTools, 500);
-
-  // Method 3: Using console trick (somewhat hacky)
-  const element = new Image();
-  Object.defineProperty(element, 'id', {
-    get: function () {
-      isDevtoolsOpen = true;
-      createOverlay();
+  // Stop Ctrl+C in DevTools
+  window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === 'c') {
+      e.preventDefault();
+      e.stopPropagation();
+      alert('Copying from console is disabled.');
     }
   });
-  console.log(element);
 
-  // Method 4: Key prevention
-  document.addEventListener('keydown', function (e) {
+  // DevTools detection using debugger trap
+  function detectDevTools() {
+    const devtools = /./;
+    devtools.toString = function () {
+      isDevtoolsOpen = true;
+      triggerDefense();
+      return 'Protected by AntiV1';
+    };
+    console.log('%c', devtools);
+  }
+
+  // Secondary detection: window dimensions
+  function checkSize() {
+    const threshold = 160;
+    if (
+      window.outerWidth - window.innerWidth > threshold ||
+      window.outerHeight - window.innerHeight > threshold
+    ) {
+      isDevtoolsOpen = true;
+      triggerDefense();
+    } else {
+      isDevtoolsOpen = false;
+      restoreState();
+    }
+  }
+
+  // Freeze execution using an infinite debugger loop (hardcore)
+  function hardFreeze() {
+    function blockLoop() {
+      if (isDevtoolsOpen) {
+        debugger; // This will annoyingly trap most users in DevTools
+        setTimeout(blockLoop, 100);
+      }
+    }
+    blockLoop();
+  }
+
+  // Activate all defenses
+  function triggerDefense() {
+    if (isDevtoolsOpen) {
+      createOverlay();
+      lockConsole();
+      if (!freezeInterval) {
+        freezeInterval = setInterval(() => {
+          console.clear();
+        }, 200);
+      }
+      hardFreeze();
+    }
+  }
+
+  function restoreState() {
+    removeOverlay();
+    if (freezeInterval) {
+      clearInterval(freezeInterval);
+      freezeInterval = null;
+    }
+  }
+
+  // Context menu and key shortcut blocking
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
     if (
       e.key === 'F12' ||
-      (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
       (e.ctrlKey && e.key === 'U')
     ) {
       e.preventDefault();
       e.stopPropagation();
-      alert('DevTools shortcut is blocked!');
     }
   });
 
-  // Method 5: Right-click prevention
-  document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    alert('Right-click is disabled on this page.');
-  });
-
-  // Method 6: Drag & paste prevention (script injection)
-  window.addEventListener('dragover', function (e) {
-    e.preventDefault();
-  }, false);
-  window.addEventListener('drop', function (e) {
-    e.preventDefault();
-  }, false);
-  window.addEventListener('paste', function (e) {
-    const clipboard = (e.clipboardData || window.clipboardData).getData('text');
-    if (/script|<|>|\(|\)|=|javascript:/gi.test(clipboard)) {
-      alert('Script paste is blocked!');
-      e.preventDefault();
-    }
-  });
-
-  // Method 7: Mutation observer (watch for injection attempts)
+  // Monitor mutations for injected scripts
   const observer = new MutationObserver(mutations => {
     for (const m of mutations) {
-      if (m.addedNodes.length > 0) {
-        m.addedNodes.forEach(node => {
-          if (
-            node.tagName &&
-            (node.tagName === 'SCRIPT' || node.tagName === 'IFRAME')
-          ) {
-            node.remove();
-            alert('Injection attempt blocked!');
-          }
-        });
-      }
+      m.addedNodes.forEach(node => {
+        if (node.tagName && ['SCRIPT', 'IFRAME'].includes(node.tagName)) {
+          node.remove();
+          alert('⚠ Script injection attempt blocked.');
+        }
+      });
     }
   });
   observer.observe(document.documentElement, {
@@ -125,4 +152,9 @@
     subtree: true
   });
 
+  // Activate all checks
+  setInterval(() => {
+    detectDevTools();
+    checkSize();
+  }, 1000);
 })();
