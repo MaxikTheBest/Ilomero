@@ -96,6 +96,15 @@
   justify-content: center;
   gap: 10px;
 }
+    @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.benefits {
+  animation: fadeIn 0.6s ease forwards;
+}
+
 
   </style>
 </head>
@@ -104,6 +113,14 @@
 
   <div class="container">
     <h1>Ilomero PowerPoint Corruptor</h1>
+    <div class="benefits" style="margin-bottom: 20px; text-align: left; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px;">
+  <h2 style="font-size: 20px; margin-top: 0; color: #93c5fd;">Benefits</h2>
+  <ul style="padding-left: 20px; margin: 0; list-style-type: disc; color: #e0f2fe;">
+    <li>🛑 Cannot be opened by Google Slides or PowerPoint</li>
+    <li>🚫 Cannot be converted to PDF</li>
+    <li>🔐 Encrypted source code for notepad edit</li>
+  </ul>
+</div>
     <div class="drop-area" id="dropArea">
   <p id="dropText">Click or drag a .pptx file here</p>
 </div>
