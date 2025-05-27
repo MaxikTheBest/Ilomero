@@ -1,9 +1,8 @@
 (function () {
   let isDevtoolsOpen = false;
   let overlay = null;
-  let freezeInterval = null;
+  let freezeActive = false;
 
-  // Display overlay to "pause" the UI
   function createOverlay() {
     if (!overlay) {
       overlay = document.createElement('div');
@@ -35,7 +34,6 @@
     }
   }
 
-  // Disable console methods
   function lockConsole() {
     const block = () => {
       console.clear();
@@ -55,7 +53,6 @@
     } catch (_) {}
   }
 
-  // Stop Ctrl+C in DevTools
   window.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === 'c') {
       e.preventDefault();
@@ -64,7 +61,21 @@
     }
   });
 
-  // DevTools detection using debugger trap
+  function hardFreeze() {
+    if (freezeActive) return;
+    freezeActive = true;
+    function freeze() {
+      if (!isDevtoolsOpen) return;
+      try {
+        debugger;
+        setTimeout(freeze, 50);
+      } catch (e) {
+        while (true) {}
+      }
+    }
+    freeze();
+  }
+
   function detectDevTools() {
     const devtools = /./;
     devtools.toString = function () {
@@ -75,7 +86,6 @@
     console.log('%c', devtools);
   }
 
-  // Secondary detection: window dimensions
   function checkSize() {
     const threshold = 160;
     if (
@@ -90,40 +100,19 @@
     }
   }
 
-  // Freeze execution using an infinite debugger loop (hardcore)
-  function hardFreeze() {
-    function blockLoop() {
-      if (isDevtoolsOpen) {
-        debugger; // This will annoyingly trap most users in DevTools
-        setTimeout(blockLoop, 100);
-      }
-    }
-    blockLoop();
-  }
-
-  // Activate all defenses
   function triggerDefense() {
     if (isDevtoolsOpen) {
       createOverlay();
       lockConsole();
-      if (!freezeInterval) {
-        freezeInterval = setInterval(() => {
-          console.clear();
-        }, 200);
-      }
       hardFreeze();
     }
   }
 
   function restoreState() {
     removeOverlay();
-    if (freezeInterval) {
-      clearInterval(freezeInterval);
-      freezeInterval = null;
-    }
+    freezeActive = false;
   }
 
-  // Context menu and key shortcut blocking
   document.addEventListener('contextmenu', e => e.preventDefault());
   document.addEventListener('keydown', e => {
     if (
@@ -136,7 +125,6 @@
     }
   });
 
-  // Monitor mutations for injected scripts
   const observer = new MutationObserver(mutations => {
     for (const m of mutations) {
       m.addedNodes.forEach(node => {
@@ -152,7 +140,6 @@
     subtree: true
   });
 
-  // Activate all checks
   setInterval(() => {
     detectDevTools();
     checkSize();
