@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ilomero corruption tools</title>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 40px;
+      border-radius: 24px;
+      backdrop-filter: blur(20px);
+      text-align: center;
+      color: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .option {
+      display: block;
+      background: #3b82f6;
+      padding: 16px;
+      border-radius: 9999px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      margin: 12px auto;
+      width: 70%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .option:hover {
+      background: #2563eb;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.6);
+    }
+
+    .option:active {
+      transform: scale(0.96);
+    }
+
+    .coming-soon {
+      font-size: 14px;
+      margin-top: 20px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <div class="container">
+    <h1>Ilomero Corruption tools</h1>
+    <a class="option" href="https://ilomero.com/powerpoint">📊 PPTX Corruptor</a>
+    <div class="option" style="background: #334155; cursor: default;">🛠️ More Coming Soon</div>
+    <div class="coming-soon">More corruption tools soon!</div>
+  </div>
+
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80 },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.3 },
+        "size": { "value": 3 },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.2,
+          "width": 1
+        },
+        "move": { "enable": true, "speed": 2 }
+      },
+      "interactivity": {
+        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>
