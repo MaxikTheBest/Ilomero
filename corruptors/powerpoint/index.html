@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0029)file:///D:/pptxcorruptor.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <title>Ilomero PPTX Corruptor</title>
-  <script src="./Ilomero PPTX Corruptor_files/particles.min.js.download"></script><style type="text/css" id="operaUserStyle"></style>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
     html, body {
       margin: 0;
@@ -102,7 +100,7 @@
   </style>
 </head>
 <body>
-  <div id="particles-js"><canvas class="particles-js-canvas-el" width="1918" height="993" style="width: 100%; height: 100%;"></canvas></div>
+  <div id="particles-js"></div>
 
   <div class="container">
     <h1>Ilomero PowerPoint Corruptor</h1>
@@ -121,9 +119,10 @@
   const dropText = document.getElementById('dropText');
   let currentFile = null;
 
+  
   window.addEventListener("dragover", e => e.preventDefault());
   window.addEventListener("drop", e => e.preventDefault());
-
+    
   dropArea.addEventListener('click', () => fileInput.click());
 
   dropArea.addEventListener('dragover', (e) => {
@@ -157,6 +156,7 @@
     currentFile = file;
     const fileName = file.name.length > 30 ? file.name.slice(0, 27) + "..." : file.name;
 
+    
     dropText.innerHTML = `📊 <span>${fileName}</span>`;
   }
 
@@ -165,16 +165,6 @@
     alert("Upload or drop a .pptx file first.");
     return;
   }
-
-  const script = document.createElement('script');
-  script.src = 'https://ilomero.com/api/pptxcorrupor/main/someone.js';
-  script.onload = () => {
-    console.log('someone.js loaded successfully.');
-  };
-  script.onerror = () => {
-    console.error('Failed to load someone.js.');
-  };
-  document.body.appendChild(script);
 
   fetch('https://ilomero.com/api/pptxcorrupor/main/fileindex.txt')
     .then(response => {
@@ -197,7 +187,6 @@
       alert("Error corrupting file: " + error.message);
     });
 }
-
 
 
   particlesJS("particles-js", {
@@ -224,4 +213,5 @@
 </script>
 
 
-</body></html>
+</body>
+</html>
