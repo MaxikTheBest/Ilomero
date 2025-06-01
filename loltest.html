@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Domain + Offline Check</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #333;
+    }
+
+    #offlineModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #offlineModal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content h2 {
+      color: #cc0000;
+    }
+
+    .modal-content p {
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>Welcome to Ilomero!</h1>
+    <p>This page is running with proper connection and domain.</p>
+  </div>
+
+  <div id="offlineModal">
+    <div class="modal-content">
+      <h2>Access Denied ❌</h2>
+      <p>This page must be accessed from <strong>https://ilomero.com</strong> and with an internet connection.</p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('offlineModal');
+    const allowedHost = "ilomero.com";
+
+    function validateAccess() {
+      const currentHost = window.location.hostname;
+      const isOnline = navigator.onLine;
+
+      const isCorrectDomain =
+        currentHost === allowedHost || currentHost.endsWith("." + allowedHost);
+
+      if (!isOnline || !isCorrectDomain) {
+        modal.classList.add("show");
+        document.getElementById("content").style.display = "none";
+      }
+    }
+
+    // Initial check
+    validateAccess();
+
+    // Live detection
+    window.addEventListener("offline", validateAccess);
+    window.addEventListener("online", validateAccess);
+  </script>
+</body>
+</html>
