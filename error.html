@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Connection Error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #f6f8fa;
+            color: #222;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .error-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            text-align: center;
+            max-width: 340px;
+            width: 100%;
+        }
+        .error-icon {
+            font-size: 3rem;
+            color: #e53e3e;
+            margin-bottom: 1rem;
+            animation: pulse 1.2s infinite alternate;
+        }
+        @keyframes pulse {
+            to { color: #c53030; }
+        }
+        h1 {
+            font-size: 1.3rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 600;
+        }
+        p {
+            color: #555;
+            margin: 0 0 1.5rem 0;
+            font-size: 1rem;
+        }
+        button {
+            background: #3182ce;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <svg class="error-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="12" fill="#FEE2E2"/>
+            <path d="M12 7v5m0 4h.01" stroke="#E53E3E" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h1>Cannot Connect</h1>
+        <p>
+            We’re having trouble reaching the server.<br>
+            <span style="color:#888;font-size:0.97em;">ERR_CONNECTION_FAILED</span>
+        </p>
+        <button onclick="location.reload()">Reload</button>
+        <div style="margin-top:1.2rem;font-size:0.93em;color:#aaa;">
+            <span>If the problem persists, check your network or try again later.</span>
+        </div>
+    </div>
+</body>
+</html>
